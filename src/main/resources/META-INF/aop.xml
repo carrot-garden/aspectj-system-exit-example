@@ -1,0 +1,12 @@
+<aspectj>
+
+	<aspects>
+		<aspect name="com.liferay.jaspect.SystemExitCallAspect"/>
+	</aspects>
+
+	<weaver options="-verbose -debug -showWeaveInfo">
+		<include within="java.lang.*"/>
+		<include within="*"/>
+	</weaver>
+
+</aspectj>

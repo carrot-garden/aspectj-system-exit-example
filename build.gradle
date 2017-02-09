@@ -7,4 +7,21 @@ repositories {
 
 dependencies {
 	compile group: 'org.aspectj', name: 'aspectjrt', version: '1.8.10'
+	runtime group: 'org.aspectj', name: 'aspectjweaver', version: '1.8.10'
+	runtime group: 'org.aspectj', name: 'aspectjtools', version: '1.8.10'
+}
+
+task copyRuntimeLibs(type: Copy) {
+	into "${projectDir}/build/libs"
+	from configurations.runtime - configurations.compile
+}
+
+task runApp(type: JavaExec) {
+	dependsOn copyRuntimeLibs
+
+	classpath = sourceSets.main.runtimeClasspath
+
+	jvmArgs "-javaagent:${projectDir}/build/libs/aspectjweaver-1.8.10.jar"
+
+	main = 'com.liferay.jaspect.Main'
 }
